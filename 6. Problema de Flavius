@@ -1,0 +1,40 @@
+**Planteamiento Matemático:**
+
+Denotemos el número de soldados como \(n\). El problema de Josephus consiste en determinar la posición en la que debe sentarse Josephus para ser el último sobreviviente. La posición de Josephus se representa como \(J(n)\).
+
+La regla de eliminación es la siguiente: dado un círculo de \(n\) soldados numerados de 1 a \(n\), el soldado en la posición \(1\) mata al soldado en la posición \(2\), el soldado en la posición \(3\) mata al soldado en la posición \(4\), y así sucesivamente. Cuando llegamos al soldado en la posición \(n\), el soldado en la posición \(1\) mata al soldado en la posición \(n\) y se reinicia el proceso. Esto continúa hasta que solo queda un soldado vivo.
+
+La función \(J(n)\) nos dará la posición en la que debe sentarse Josephus para ser el último sobreviviente.
+
+**Programa en Python:**
+
+```python
+def josephus(n):
+    if n == 1:
+        return 1
+    else:
+        # Josephus(n) = (Josephus(n-1) + 1) % n + 1
+        return (josephus(n - 1) + 1) % n + 1
+
+# Resolver el problema para 41 soldados
+soldados = 41
+posicion_ganadora = josephus(soldados)
+print(f"Josephus debe sentarse en la posición {posicion_ganadora} para ser el último sobreviviente.")
+```
+
+Este programa en Python utiliza la fórmula recursiva \(J(n) = (J(n-1) + 1) \mod n + 1\) para calcular la posición en la que Josephus debe sentarse para ser el último sobreviviente.
+
+**Estrategia General:**
+
+La estrategia general para determinar la posición ganadora de Josephus para cualquier \(n\) implica observar patrones para valores más pequeños de \(n\) y luego deducir una fórmula o estrategia que funcione para cualquier \(n\). La recursión proporcionada en la fórmula anterior es un buen punto de partida para comprender el patrón.
+
+Por ejemplo, para valores pequeños de \(n\):
+- \(J(1) = 1\)
+- \(J(2) = 1\)
+- \(J(3) = 3\)
+- \(J(4) = 1\)
+- \(J(5) = 3\)
+- \(J(6) = 5\)
+- ...
+
+Observando estos resultados, podrías intentar deducir una fórmula general para \(J(n)\) que funcione para cualquier \(n\).
