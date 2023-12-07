@@ -1,0 +1,80 @@
+El espacio de estados para el problema de las ranas puede representarse de manera gráfica o en forma de árbol para comprender mejor las posibles transiciones entre los estados. En este caso, las ranas se dividen en dos grupos: verdes y marrones, y la configuración deseada es tener todas las ranas verdes a la derecha y todas las ranas marrones a la izquierda.
+
+**Representación gráfica de las posiciones iniciales y finales:**
+
+```
+Inicio: GGG_MMM  (GGG: Ranas Verdes, MMM: Ranas Marrones)
+Meta:   MMM_GGG
+```
+
+Las letras G y M representan ranas verdes y marrones, respectivamente.
+
+**Espacio de Estados (Árbol de Estados):**
+
+```
+                GGG_MMM
+                  /   \
+           GMG_GMG   MMM_GGG
+             / \       / \
+        G_M_GMG GGG_M_MMG ...
+```
+
+En el árbol de estados, cada nodo representa una configuración particular de ranas. Las transiciones entre estados se realizan mediante saltos de ranas según las reglas dadas en el problema.
+
+**Reglas del Problema:**
+- Las ranas pueden saltar a una piedra vacía que tengan delante.
+- Las ranas pueden saltar por encima de otra rana si en medio de ambas hay una piedra vacía.
+
+**Observaciones:**
+- G indica una rana verde.
+- M indica una rana marrón.
+- `_` indica una piedra vacía.
+
+**Ejemplo de Movimiento:**
+- Si seleccionas una rana verde en la posición `G_G_MMM` (donde `_` es una piedra vacía), puedes moverla a la derecha, resultando en la posición `GGG_MM_`.
+
+Esta representación del espacio de estados muestra las posibles configuraciones a las que se puede llegar desde la posición inicial hasta la posición objetivo.
+
+En un problema real, un algoritmo de búsqueda (como búsqueda en anchura o búsqueda en profundidad) se utilizaría para explorar este espacio de estados y encontrar una secuencia de movimientos que lleve desde el estado inicial al estado objetivo.
+El espacio de estados para el problema de los misioneros y caníbales puede representarse mediante un grafo que muestra las posibles configuraciones de misioneros, caníbales y bote en ambas orillas del río. Cada nodo del grafo representa un estado particular y las aristas representan las transiciones permitidas.
+
+**Notación:**
+- \(M\) representa a los misioneros.
+- \(C\) representa a los caníbales.
+- \(B\) representa la posición del bote.
+
+**Espacio de Estados (Grafo):**
+
+```
+(3M, 3C, B)  ---[1M, 0C, B]--->  (2M, 3C, ~B)
+   |                                    |
+   +--[2C, 0M, B]--->  (3M, 1C, ~B)----+
+   |                                    |
+   +--[1C, 1M, B]--->  (3M, 2C, ~B)----+
+   |                                    |
+   +--[0C, 2M, B]--->  (3M, 1C, ~B)----+
+   |                                    |
+   +--[1C, 0M, B]--->  (3M, 2C, ~B)----+
+   |                                    |
+   +--[2C, 1M, B]--->  (3M, 1C, ~B)----+
+   |                                    |
+   +--[0C, 1M, B]--->  (3M, 2C, ~B)----+
+   |                                    |
+   +--[1C, 0M, B]--->  (3M, 1C, ~B)----+
+   |                                    |
+   +--[0C, 2M, B]--->  (3M, 0C, ~B)----+
+```
+
+**Explicación:**
+- La tupla \((3M, 3C, B)\) representa la configuración inicial con tres misioneros, tres caníbales y el bote en la orilla de partida.
+- Las aristas indican las acciones permitidas, donde la notación \([1M, 0C, B]\) significa que se lleva a un misionero al otro lado del río, \([2C, 0M, B]\) significa que se llevan dos caníbales, y así sucesivamente.
+- Los nodos con tilde (~) en la posición del bote indican la orilla opuesta.
+
+**Condiciones del Problema:**
+- En ningún momento puede haber más caníbales que misioneros en cualquier orilla.
+- Si hay caníbales en una orilla, debe haber igual o más caníbales en la otra orilla.
+- Los misioneros y caníbales pueden cruzar el río solo si están en el mismo lado del río que el bote.
+
+La resolución del problema implica encontrar una secuencia de acciones que lleven a los misioneros y caníbales de la orilla de inicio a la orilla de destino, cumpliendo con las condiciones del problema en cada paso.
+
+Para resolver este tipo de problema, se pueden aplicar algoritmos de búsqueda como la búsqueda en anchura o la búsqueda en profundidad para encontrar una solución que cumpla con las restricciones establecidas.
