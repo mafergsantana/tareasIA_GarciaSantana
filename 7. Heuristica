@@ -1,0 +1,77 @@
+La heurística es una técnica utilizada en la resolución de problemas para encontrar soluciones aproximadas cuando las soluciones exactas son computacionalmente costosas o incluso imposibles de obtener en un tiempo razonable. En el contexto de búsqueda y optimización, una heurística es una "regla general" o "intuición" que guía la exploración de soluciones prometedoras.
+
+En el caso de laberintos y algoritmos de búsqueda, una heurística comúnmente utilizada es la heurística de distancia Manhattan. Esta heurística estima la distancia entre dos puntos en un plano cuadriculado (como un tablero de ajedrez) calculando la suma de las diferencias absolutas entre las coordenadas x e y de los dos puntos.
+
+### Solución del Laberinto con Recursividad:
+
+Primero, definamos una función para resolver el laberinto utilizando recursividad y una heurística. En este caso, la heurística de distancia Manhattan se puede usar para guiar la búsqueda hacia la salida del laberinto.
+
+```python
+def heuristica_manhattan(punto_actual, punto_destino):
+    # Heurística de distancia Manhattan
+    return abs(punto_actual[0] - punto_destino[0]) + abs(punto_actual[1] - punto_destino[1])
+
+def resolver_laberinto(laberinto, punto_actual, punto_destino):
+    # Verificar si el punto actual es la salida
+    if punto_actual == punto_destino:
+        return [punto_actual]
+
+    # Obtener las posiciones vecinas válidas
+    vecinos = [(punto_actual[0] + 1, punto_actual[1]),
+               (punto_actual[0] - 1, punto_actual[1]),
+               (punto_actual[0], punto_actual[1] + 1),
+               (punto_actual[0], punto_actual[1] - 1)]
+
+    # Filtrar vecinos válidos (caminos marcados con 0)
+    vecinos_validos = [vecino for vecino in vecinos if laberinto[vecino[0]][vecino[1]] == '0']
+
+    # Ordenar los vecinos según la heurística de distancia Manhattan
+    vecinos_validos.sort(key=lambda vecino: heuristica_manhattan(vecino, punto_destino))
+
+    # Explorar cada vecino recursivamente
+    for vecino in vecinos_validos:
+        solucion_parcial = resolver_laberinto(laberinto, vecino, punto_destino)
+        if solucion_parcial:
+            return [punto_actual] + solucion_parcial
+
+    # No se encontró solución desde este punto
+    return None
+
+# Laberinto de ejemplo
+laberinto = [
+    "111111111",
+    "000000101",
+    "111011101",
+    "100010101",
+    "101110101",
+    "100000001",
+    "101110101",
+    "001000101",
+    "111111111"
+]
+
+# Puntos de inicio y destino
+inicio = (1, 0)
+fin = (7, 8)
+
+# Resolver el laberinto
+solucion = resolver_laberinto(laberinto, inicio, fin)
+
+# Imprimir la solución
+if solucion:
+    print("Solución encontrada:")
+    for punto in solucion:
+        print(punto)
+else:
+    print("No hay solución.")
+```
+
+### Descripción del Algoritmo:
+
+1. **Heurística de Distancia Manhattan:** Se utiliza para estimar la distancia entre dos puntos en el laberinto. Esto ayuda a guiar la búsqueda hacia la salida de manera más eficiente.
+
+2. **Función Recursiva `resolver_laberinto`:** Esta función toma como entrada el laberinto, el punto actual y el punto de destino. Verifica si el punto actual es la salida y, si no lo es, explora recursivamente las posiciones vecinas válidas ordenadas por la heurística de distancia Manhattan.
+
+3. **Resultado de la Solución:** La función devuelve una lista de puntos que representa el camino desde el punto de inicio hasta la salida. Si no hay solución, devuelve `None`.
+
+Este algoritmo utiliza recursividad y una heurística para encontrar una solución aproximada al problema del laberinto. Ten en cuenta que hay otras técnicas y algoritmos más avanzados para abordar este tipo de problemas, como los algoritmos de búsqueda informada A* o Dijkstra.
